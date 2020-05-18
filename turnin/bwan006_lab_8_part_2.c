@@ -25,35 +25,10 @@ int main(void) {
     ADC_init();
     while (1) {
 	x = ADC;
-	//set max = 1110000000 = 896
-	//max / 2 = 111000000 = 448
-	if(x < 112){
-		b = 0x01;
-	}
-	if(x >= 112 && x < 224){
-		b = 0x03;
-	}
-	if(x >= 224 && x < 336){
-		b = 0x07;
-	}
-	if(x >= 336 && x < 448){
-		b = 0x0F;
-	}
-	if(x >= 448 && x < 560){
-		b = 0x1F;
-	}
-	if(x >= 560 && x < 672){
-		b = 0x3F;
-	}
-	if(x >= 672 && x < 784){
-		b = 0x7F;
-	}
-	if(x >= 784){
-		b = 0xFF;
-	}
+	b = (x & 0x0FF);
+	d = (x >> 8);
 	PORTB = b;
-
-   }
-
+	PORTD = d;
+    }
     return 1;
 }
